@@ -16,26 +16,33 @@ namespace WaffleWebWorksTpFinal.Controllers
         }
 
         private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MovieADO;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
+        // guardo lo necesario para conectar a la base de datos en un string para despues pegar el string y listo
         List<Carrera> list = new List<Carrera>();
-
+        //lisrta para guardar los resultados del select
         public IActionResult Index()
         {
             try
             {
+                //prepara la conectar
                 SqlConnection connection = new SqlConnection(connectionString);
+                //abre la coencta
                 connection.Open();
+                // guarda en un string el codigo sql a ejecutar
                 string queryString = "Select * from Carrera";
                 //string queryString = "INSERT INTO MovieADO (Id, titulo, fecha, genero, precio) VALUES (10, 'Delta', 15/12/1999, 'magia', 600);";
+                // no me acurdo, creoq ue guarda en un comadno sql lo que debe ejecutar y en que conexion hacerlo
                 SqlCommand command = new SqlCommand(queryString, connection);
                 //  command.ExecuteReader(queryString);
                 //command.Parameters.AddWithValue("@Id", id);
+                //ejecuta el codigo sql y guarda en reader
                 SqlDataReader reader = command.ExecuteReader();
 
+                //repite las filas obtenidas
                 while (reader.Read())
                 {
                     Carrera movieADOs = new Carrera()
                     {
+                        //guarda por elemento del modelo carrera
                         Id = int.Parse(reader[0].ToString()),
                         Name = reader[1].ToString(),
                         //
@@ -43,6 +50,7 @@ namespace WaffleWebWorksTpFinal.Controllers
                         Description = reader[2].ToString(),
                         //  Price = int.Parse(reader[4].ToString()),
                     };
+                    //guarda en la lista
                     list.Add(movieADOs);
                     // return View(movieADOs);
 
@@ -51,8 +59,9 @@ namespace WaffleWebWorksTpFinal.Controllers
                 }
 
 
-
+                //cierrra la conexion
                 connection.Close();
+                //muestra la lista de resutltado
                 return View(list);
 
             }
@@ -85,13 +94,14 @@ namespace WaffleWebWorksTpFinal.Controllers
                 //string queryString = "INSERT INTO MovieADO (Id, titulo, fecha, genero, precio) VALUES (10, 'Delta', 15/12/1999, 'magia', 600);";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 //  command.ExecuteReader(queryString);
+                //toma los parametros obtenidos para despues agregarlos en el consulta sql
                 command.Parameters.AddWithValue("@Carrera", mov.Name);
                 command.Parameters.AddWithValue("@Description", mov.Description);
                 
 
 
 
-
+                //ejecuta la consulta
                 SqlDataReader reader = command.ExecuteReader();
 
 
@@ -112,10 +122,12 @@ namespace WaffleWebWorksTpFinal.Controllers
             {
                 SqlConnection connection = new SqlConnection(connectionString);
                 connection.Open();
+                //filtra por id
                 string queryString = "Select * from carrera Where Id=@ID";
                 //string queryString = "INSERT INTO carrera (Id, titulo, fecha, genero, precio) VALUES (10, 'Delta', 15/12/1999, 'magia', 600);";
                 SqlCommand command = new SqlCommand(queryString, connection);
                 //  command.ExecuteReader(queryString);
+                //necesario hacer este para que sepa a que id filtrar
                 command.Parameters.AddWithValue("@Id", id);
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -152,6 +164,7 @@ namespace WaffleWebWorksTpFinal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //esto seria editor pero el editor sin httpost es lo mismo que el de arriba. ademas un poco de variedad
         public async Task<IActionResult> Detalle(int id, Carrera mov)
         {
 
@@ -187,6 +200,7 @@ namespace WaffleWebWorksTpFinal.Controllers
 
 
         }
+        // intente hacer lo mismo que arriba pero no pude, la razon nose 
         public IActionResult Delete(int id)
         {
             try
