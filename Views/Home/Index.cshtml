@@ -1,15 +1,17 @@
-﻿@model IEnumerable<WaffleWebWorksTpFinal.Models.Carrera>
+﻿@model IEnumerable<WaffleWebWorksTpFinal.Models.CarreraIma>
 
 
 @{
     ViewData["Title"] = "Home Page";
 }
 <!-- Compiled and minified Bootstrap CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >-->
 <!-- Minified JS library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
 <!-- Compiled and minified Bootstrap JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>-->
+
 
 <div class="text-center">
     <h1 class="display-4">Carreras</h1>
@@ -27,7 +29,7 @@
                @foreach (var item in Model) { 
                     
 	                <div class="col-sm-4">
-                        <img src="images/logo6.jpeg" width="100%"  href="#victorModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">
+                        <img src="@Html.DisplayFor(modelItem => item.Imagen)" width="100%"  href="#victorModal" role="button" class="btn btn-large btn-primary" data-toggle="modal">
                       <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
                       <p>
                           @*  <a asp-controller="MovieADO" asp-action="Index" class="modal-content" ><input type="submit" value="Horarios" class="btn btn-primary  " /> </a>

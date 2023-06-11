@@ -1,4 +1,4 @@
-﻿@model WaffleWebWorksTpFinal.Models.Carrera
+﻿@model WaffleWebWorksTpFinal.Models.CarreraIma
 <!-- model toma los parametrso de  carrera-->
 @{
     ViewData["Title"] = "Detalle";
@@ -16,10 +16,17 @@
     <dl class="row">
         
 
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-8">
             <!--toma los valores  del model-->
             @Html.DisplayFor(model => model.Description)
         </dd>
+            <dd class = "col-sm-4">
+            <!--toma los valores  del model https://drive.google.com/uc?export=view&id=-->
+                <img src="@Html.DisplayFor(model => model.Imagen)" width="100%"  role="button" class="btn btn-large btn-primary" data-toggle="modal">
+                <!--<img src="https://drive.google.com/uc?export=view&id=1z_dh1O5iqOfnivzdsOOLfdlPEKxxzolH" width="100%"  role="button" class="btn btn-large btn-primary" data-toggle="modal">-->
+
+            </dd>
+        
     </dl>
 </div>
 <div>
@@ -56,7 +63,11 @@
                                                     <textarea asp-for="Description" class="form-control " rows="10" cols="40">@Html.DisplayFor(model => model.Description)</textarea> 
                                                      <span asp-validation-for="Description" class="text-danger"></span>
                                                 </div>
-                                                
+                                                <div class="form-group">
+                                                    <label asp-for="Imagen" class="control-label"></label>
+                                                    <input asp-for="Imagen"   class="form-control" />
+                                                    <span asp-validation-for="Imagen" class="text-danger"></span>
+                                                </div>
            
             
                                                 <div class="form-group">
